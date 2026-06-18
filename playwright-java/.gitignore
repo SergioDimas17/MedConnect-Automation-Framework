@@ -1,0 +1,17 @@
+# Carpetas target de Maven en cualquier nivel
+**/target/
+*.class
+*.log
+*.jar
+*.war
+
+# Carpetas pesadas de Node.js / Cypress
+**/node_modules/
+**/cypress/screenshots/
+**/cypress/videos/
+
+# Configuraciones de IntelliJ y VSCode
+**/.idea/
+**/*.iml
+.vscode/
+.DS_Store
