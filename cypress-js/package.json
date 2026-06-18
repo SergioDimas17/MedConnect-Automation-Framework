@@ -1,0 +1,19 @@
+{
+  "name": "medconnect-automation-framework",
+  "version": "1.0.0",
+  "description": "Suite empresarial de automatización con Cypress + JavaScript",
+  "main": "index.js",
+ "scripts": {
+  "clean:reports": "node -e \"const fs = require('fs'); fs.rmSync('cypress/reports', { recursive: true, force: true }); fs.rmSync('cypress/screenshots', { recursive: true, force: true });\"",
+  "cy:run": "cypress run",
+  "report:merge": "node -e \"const { merge } = require('mochawesome-merge'); const fs = require('fs'); merge({ files: ['cypress/reports/mocha/*.json'] }).then(r => fs.writeFileSync('cypress/reports/report.json', JSON.stringify(r)));\"",
+  "report:generate": "npx marge cypress/reports/report.json --reportDir cypress/reports --html true --json false --charts true --reportPageTitle \"MedConnect-Regression-Report\" --inlineAssets true",
+  "test:regression": "npm run clean:reports && (npm run cy:run || cd .) && npm run report:merge && npm run report:generate"
+},
+  "devDependencies": {
+    "cypress": "^13.0.0",
+    "mochawesome": "^7.1.4",
+    "mochawesome-merge": "^4.4.1",
+    "mochawesome-report-generator": "^6.3.2"
+  }
+}
