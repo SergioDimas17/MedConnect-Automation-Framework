@@ -70,3 +70,23 @@ Implementación de listeners pasivos mediante extensiones de JUnit 5 (`AfterTest
 2. Ejecuta la suite: `mvn clean test`
 3. Compila el reporte: `mvn allure:report`
 4. Abre el dashboard: Abre en tu navegador `target/site/allure-report/index.html`
+---
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+>>>>>>> 20dc09e4f79a10424a41039a7791724e8fcf117a
