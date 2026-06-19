@@ -27,7 +27,7 @@ public class DashboardPage {
     private By confirmButton = By.xpath("//button[@type='submit' and contains(., 'Agendar Cita')]");
 
     // Nuevo selector para verificar la tabla (asumiendo que los datos del paciente aparecen en una fila)
-    // Buscamos un elemento que contenga el nombre del paciente en el cuerpo de la página
+    // Se busca un elemento que contenga el nombre del paciente en el cuerpo de la página
     private String rowLocator = "//div[contains(text(), '%s') or contains(., '%s')]";
 
     public DashboardPage(WebDriver driver) {
@@ -74,7 +74,7 @@ public class DashboardPage {
         js.executeScript("arguments[0].click();", btn);
     }
 
-    // 🎯 NUEVO MÉTODO DE VALIDACIÓN: Busca el nombre en la tabla/dashboard
+    // Se busca el nombre en la tabla/dashboard
     public boolean isAppointmentVisible(String patientName) {
         try {
             // Espera a que aparezca un elemento que contenga el nombre del paciente
@@ -86,7 +86,7 @@ public class DashboardPage {
     }
 
     public boolean isModalPresent() {
-        // Buscamos si existe al menos un elemento con role='dialog'
+        // Se busca si existe al menos un elemento con role='dialog'
         List<WebElement> modals = driver.findElements(By.xpath("//div[@role='dialog']"));
 
         // Si la lista tiene elementos, verificamos si está visible

@@ -13,14 +13,14 @@ public class AppointmentTest extends BaseTest {
         LoginPage loginPage = new LoginPage(page);
         AppointmentPage appointmentPage = new AppointmentPage(page);
 
-        // 1. AUTENTICACIÓN: Acceso seguro al sistema (EDP-2: TC1)
+        // Acceso seguro al sistema (EDP-2: TC1)
         loginPage.iniciarSesion("admin@medconnect.com", "Admin123");
 
-        // 2. APERTURA: Despliegue del formulario (EDP-4: TC1)
+        // Despliegue del formulario (EDP-4: TC1)
         appointmentPage.abrirFormularioNuevaCita();
         assertThat(appointmentPage.obtenerInputNombrePaciente()).isVisible();
 
-        // 3. SECUENCIA OBLIGATORIA DE ENTRADA DE DATOS (Manejo de Estados Dependientes)
+        // OBLIGATORIA DE ENTRADA DE DATOS (Manejo de Estados Dependientes)
         appointmentPage.ingresarNombrePaciente("Carlos Pérez");
         appointmentPage.ingresarCorreo("carlos.perez@email.com");
         appointmentPage.ingresarTelefono("5551234567");
@@ -36,17 +36,17 @@ public class AppointmentTest extends BaseTest {
         appointmentPage.abrirDesplegableHora();
         appointmentPage.seleccionarPrimerElementoDisponible();
 
-        // 4. CAPA DE RENDIMIENTO (NF): Captura de estampa de tiempo Unix inicial
+        // Captura de estampa de tiempo Unix inicial
         long tiempoInicio = System.currentTimeMillis();
 
-        // 5. ACCIÓN CRÍTICA: Confirmar el guardado de la cita médica (EDP-5: TC1)
+        //  Confirmar el guardado de la cita médica (EDP-5: TC1)
         appointmentPage.confirmarGuardado();
 
-        // 6. ASERCIONES E2E DE CONTROL DE CALIDAD: Cierre del modal y verificación en tabla Dashboard
+        //  Cierre del modal y verificación en tabla Dashboard
         assertThat(appointmentPage.obtenerModalCita()).isHidden();
         assertThat(appointmentPage.buscarPacienteEnTabla("Carlos Pérez")).isVisible();
 
-        // 7. CÁLCULO DE PERFORMANCE: Validación de renderizado menor a 4 segundos (4000 ms)
+        //  Validación de renderizado menor a 4 segundos (4000 ms)
         long tiempoFin = System.currentTimeMillis();
         long tiempoTotalProcesamiento = tiempoFin - tiempoInicio;
 

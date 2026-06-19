@@ -14,7 +14,7 @@ public class ConcurrencyTest extends BaseTest {
     @Test
     @Disabled("JIRA-MED-03: Desactivado temporalmente hasta que el equipo de desarrollo corrija el cierre abrupto del modal en colisiones")
     public void flujoE2E_03_ControlDeConcurrenciaMultiUsuario() {
-        // =============== CONFIGURACIÓN DE OPERADORES ===============
+        // CONFIGURACIÓN DE OPERADORES
         LoginPage loginPage1 = new LoginPage(page);
         AppointmentPage appointmentPage1 = new AppointmentPage(page);
 
@@ -23,17 +23,17 @@ public class ConcurrencyTest extends BaseTest {
         LoginPage loginPage2 = new LoginPage(page2);
         AppointmentPage appointmentPage2 = new AppointmentPage(page2);
 
-        // =============== PASO 1: INICIO DE SESIÓN SIMULTÁNEO ===============
+        //  INICIO DE SESIÓN SIMULTÁNEO
         loginPage1.iniciarSesion("admin@medconnect.com", "Admin123");
 
         page2.navigate(baseUrl);
         loginPage2.iniciarSesion("admin@medconnect.com", "Admin123");
 
-        // =============== PASO 2: APERTURA DE MODALES ===============
+        // APERTURA DE MODALES
         appointmentPage1.abrirFormularioNuevaCita();
         appointmentPage2.abrirFormularioNuevaCita();
 
-        // =============== PASO 3: OPERADOR 1 PREPARA SU CITA ===============
+        // OPERADOR 1 PREPARA SU CITA
         appointmentPage1.ingresarNombrePaciente("Paciente Concurrente Uno");
         appointmentPage1.ingresarCorreo("operador1@email.com");
         appointmentPage1.ingresarTelefono("5559998881");
@@ -44,7 +44,7 @@ public class ConcurrencyTest extends BaseTest {
         appointmentPage1.abrirDesplegableHora();
         appointmentPage1.seleccionarPrimerElementoDisponible();
 
-        // =============== PASO 4: OPERADOR 2 SELECCIONA EL MISMO HORARIO CRÍTICO ===============
+        //  OPERADOR 2 SELECCIONA EL MISMO HORARIO CRÍTICO
         appointmentPage2.ingresarNombrePaciente("Paciente Concurrente Dos");
         appointmentPage2.ingresarCorreo("operador2@email.com");
         appointmentPage2.ingresarTelefono("5559998882");
@@ -56,18 +56,18 @@ public class ConcurrencyTest extends BaseTest {
         appointmentPage2.abrirDesplegableHora();
         appointmentPage2.seleccionarPrimerElementoDisponible();
 
-        // =============== PASO 5: LA CARRERA DE REQUISICIONES ===============
-        // El Operador 1 consolida primero su cita (Gana la reserva)
+        //  LA CARRERA DE REQUISICIONES
+        // El Operador 1 consolida primero su cita
         appointmentPage1.confirmarGuardado();
 
         // El Operador 2 intenta procesar inmediatamente después
         appointmentPage2.confirmarGuardado();
 
-        // =============== PASO 6: ASERCIONES DE CONCURRENCIA ===============
-        // 1. Verificamos que el Operador 1 ve a su paciente exitosamente en la tabla
+        //  ASERCIONES DE CONCURRENCIA
+        //  Verificamos que el Operador 1 ve a su paciente exitosamente en la tabla
         assertThat(appointmentPage1.buscarPacienteEnTabla("Paciente Concurrente Uno")).isVisible();
 
-        // 2. Verificamos que el Operador 2 recibe un mensaje restrictivo de "Horario ya reservado"
+        //  Verificamos que el Operador 2 recibe un mensaje restrictivo de "Horario ya reservado"
         // o que el modal de la segunda página NO se cerró debido al bloqueo por Overbooking
         assertThat(appointmentPage2.obtenerModalCita()).isVisible();
 

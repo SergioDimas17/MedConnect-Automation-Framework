@@ -6,22 +6,21 @@ import com.microsoft.playwright.Page;
 public class AppointmentPage {
     private Page page;
 
-    // 📍 1. Localizadores del Formulario Estructural
+    // Localizadores del Formulario Estructural
     private String botonNuevaCita = "main button:has-text('Nueva Cita')";
     private String inputNombre = "input[placeholder*='María' i]";
     private String inputCorreo = "input[type='email'], input[placeholder*='correo' i]";
     private String inputTelefono = "input[type='tel'], input[placeholder*='teléfono' i], input[placeholder*='phone' i]";
 
-    // 📍 2. Localizadores de los Desplegables / Dropdowns Personalizados
+    //  Localizadores de los Desplegables / Dropdowns Personalizados
     private String comboEspecialidad = "text=Seleccionar especialidad";
     private String comboDoctor = "text=Seleccionar doctor";
     private String comboFecha = "button[data-slot='dropdown-menu-trigger']:has(.lucide-calendar)";
     private String comboHora = "text=Seleccionar hora";
 
-    // Compartido por los menús dinámicos de Shadcn/v0
     private String opcionesDropdown = "[data-slot='dropdown-menu-item']";
 
-    // 📍 3. Confirmación y Cierre
+    // Confirmación y Cierre
     private String botonConfirmarGuardado = "button:has-text('Agendar Cita'), button[type='submit']";
     private String primeraFilaTabla = "table tbody tr";
     private String modalCita = "div[role='dialog']";
@@ -30,7 +29,7 @@ public class AppointmentPage {
         this.page = page;
     }
 
-    // 🛠️ ACCIONES SECUENCIALES DEL FLUJO CORE
+    //  ACCIONES SECUENCIALES DEL FLUJO
     public void abrirFormularioNuevaCita() {
         page.click(botonNuevaCita);
     }
@@ -74,7 +73,7 @@ public class AppointmentPage {
         page.click(botonConfirmarGuardado);
     }
 
-    // 🛠️ LOCALIZADORES DE ASERCIÓN
+    // LOCALIZADORES DE ASERCIÓN
     public Locator obtenerInputNombrePaciente() {
         return page.locator(inputNombre);
     }
@@ -89,10 +88,10 @@ public class AppointmentPage {
     }
 
     public void seleccionarPrimerDoctorDisponible() {
-        // 1. Abre el desplegable de doctores correspondiente a la especialidad elegida
+        //  Abre el desplegable de doctores correspondiente a la especialidad elegida
         page.click(comboDoctor);
 
-        // 2. Hace clic en el primer médico de la lista dinámicamente renderizada
+        // Hace clic en el primer médico de la lista dinámicamente renderizada
         page.locator(opcionesDropdown).first().click();
     }
 

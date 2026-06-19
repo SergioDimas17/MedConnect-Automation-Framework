@@ -6,14 +6,14 @@ public class LoginPage {
 
     private Page page;
 
-    // 📍 Selectores de inputs estándar
+    //  Selectores de inputs estándar
     private String inputCorreo = "input[type='email']";
     private String inputContrasena = "input[type='password']";
 
-    // 🔑 SOLUCIÓN 1: Si el botón no tiene type='submit', lo clickeamos buscando su texto exacto
+    //  SOLUCIÓN 1: Si el botón no tiene type='submit', lo clickeamos buscando su texto exacto
     private String botonIniciarSesion = "button:has-text('Iniciar Sesión')";
 
-    // 🔑 SOLUCIÓN 2: Agregamos el prefijo 'text=' indispensable para que Playwright no busque un tag CSS
+    //  SOLUCIÓN 2: Agregamos el prefijo 'text=' indispensable para que Playwright no busque un tag CSS
     private String botonAgendarCita = "main button:has-text('Nueva Cita')";
     
     public LoginPage(Page page) {

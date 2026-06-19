@@ -27,7 +27,7 @@ public class BaseTest {
         playwright = Playwright.create();
         browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false));
 
-        // 🎥 Grabación de video automática para todas las pruebas
+        //  Grabación de video automática para todas las pruebas
         context = browser.newContext(new Browser.NewContextOptions()
                 .setRecordVideoDir(Paths.get("target/allure-results/videos/")));
 
@@ -42,7 +42,7 @@ public class BaseTest {
         if (playwright != null) playwright.close();
     }
 
-    // 🌟 INTERCEPTOR DE LISTENER: Toma captura de pantalla automática SOLO si el test falla
+    //  Toma captura de pantalla automática SOLO si el test falla
     @RegisterExtension
     AfterTestExecutionCallback visualEvidenceGuard = new AfterTestExecutionCallback() {
         @Override

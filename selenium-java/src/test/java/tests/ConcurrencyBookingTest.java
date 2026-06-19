@@ -67,13 +67,13 @@ public class ConcurrencyBookingTest {
             latch.countDown();
             latch.await();
 
-            // ¡FUEGO! Disparo del evento al unísono
+            //  Disparo del evento al unísono
             dashboard.clickConfirmAppointment();
 
             // Esperamos los 2 segundos clave para que el frontend renderice la respuesta final
             Thread.sleep(2000);
 
-            // 📸 🎯 EL MOMENTO EXACTO: La UI ya se estabilizó. Capturamos la evidencia visual.
+                // Se captura la evidencia visual.
             EvidenceManager.capturarPantalla(driver, nombreOperador + "_Resultado_Concurrencia");
 
             // Evaluamos el estado lógico final para la aserción

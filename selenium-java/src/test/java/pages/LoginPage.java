@@ -11,18 +11,18 @@ public class LoginPage {
     private WebDriver driver;
     private WebDriverWait wait;
 
-    // 📍 Localizadores del DOM Verificados
+    //  Localizadores del DOM Verificados
     private By emailField = By.cssSelector("input[type='email']");
     private By passwordField = By.cssSelector("input[type='password']");
     private By loginButton = By.cssSelector("button[type='submit']");
 
-    // ⚙️ Constructor
+    // ⚙onstructor
     public LoginPage(WebDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
-    // 🚀 Acciones de la Página protegidas con esperas explícitas
+    // Acciones de la Página protegidas con esperas explícitas
     public void enterEmail(String email) {
         wait.until(ExpectedConditions.visibilityOfElementLocated(emailField)).sendKeys(email);
     }

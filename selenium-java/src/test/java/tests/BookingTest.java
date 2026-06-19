@@ -27,7 +27,7 @@ public class BookingTest extends BaseTest {
         dashboardPage.selectFirstAvailableTimeSlot();
         dashboardPage.clickConfirmAppointment();
 
-        // 🧪 VALIDACIÓN FINAL: Verificamos que la cita existe en la tabla
+        // Se verifica que la cita existe en la tabla
         boolean citaCreada = dashboardPage.isAppointmentVisible("María García López");
 
         Assertions.assertTrue(citaCreada, "La cita no aparece en el Dashboard después de confirmar.");
