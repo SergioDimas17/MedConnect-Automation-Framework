@@ -17,10 +17,6 @@ las tres herramientas líderes del mercado: **Playwright, Selenium WebDriver y C
 comparar de forma científica la velocidad de ejecución, estabilidad de los selectores, flujos de sincronización
 asíncrona y consumo de infraestructura de cada solución bajo un patrón de arquitectura común.
 
-¡Bienvenido a mi ecosistema avanzado de **QA Automation**! Este repositorio modular tipo *Monorepo* centraliza la estrategia de pruebas de punta a punta (E2E) para **MedConnect**, una plataforma web moderna de agendamiento de citas médicas estructurada como una *Single Page Application* (SPA) basada en React y Radix UI.
-
-La particularidad estratégica de este ecosistema es que replica exactamente los mismos flujos críticos de negocio bajo las tres herramientas líderes del mercado: **Playwright, Selenium WebDriver y Cypress**. Esto me permite evaluar y comparar de forma científica la velocidad de ejecución, estabilidad de los selectores, flujos de sincronización asíncrona y consumo de infraestructura de cada solución bajo un patrón de arquitectura común.
-
 ---
 
 ## 📂 Estructura y Navegación del Ecosistema
