@@ -72,21 +72,3 @@ Implementación de listeners pasivos mediante extensiones de JUnit 5 (`AfterTest
 4. Abre el dashboard: Abre en tu navegador `target/site/allure-report/index.html`
 ---
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
->>>>>>> 20dc09e4f79a10424a41039a7791724e8fcf117a
