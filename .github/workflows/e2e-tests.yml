@@ -61,3 +61,33 @@ jobs:
           cd playwright-java
           Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
           mvn test
+
+  selenium-java-tests:
+    name: Pruebas Selenium (Java)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout del código
+        uses: actions/checkout@v4
+
+      - name: Configurar JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Instalar dependencias para Selenium
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y xvfb chromium-browser chromium-chromedriver
+
+      - name: Ejecutar Pruebas con Maven
+        env:
+          BASE_URL: ${{ secrets.BASE_URL || 'https://v0-medconnect-booking-app.vercel.app/' }}
+          ADMIN_USER: ${{ secrets.ADMIN_USER || 'admin@medconnect.com' }}
+          ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD || 'Admin123' }}
+          DISPLAY: :99
+          CHROMEDRIVER_PATH: /usr/bin/chromedriver
+        run: |
+          cd selenium-java
+          Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
+          mvn test
