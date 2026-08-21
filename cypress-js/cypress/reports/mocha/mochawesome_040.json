@@ -1,0 +1,148 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 1,
+    "passes": 0,
+    "pending": 0,
+    "failures": 1,
+    "start": "2026-06-20T06:12:12.788Z",
+    "end": "2026-06-20T06:12:34.208Z",
+    "duration": 21420,
+    "testsRegistered": 3,
+    "passPercent": 0,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 2,
+    "hasSkipped": true
+  },
+  "results": [
+    {
+      "uuid": "4c0c05e9-f27b-480c-bf49-2c2f9f101b03",
+      "title": "",
+      "fullFile": "cypress\\e2e\\2-advanced-examples\\navigation.cy.js",
+      "file": "cypress\\e2e\\2-advanced-examples\\navigation.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "55e4c697-1d24-4c87-96e9-32fa9bce836f",
+          "title": "Navigation",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "cy.go() - go back or forward in the browser's history",
+              "fullTitle": "Navigation cy.go() - go back or forward in the browser's history",
+              "timedOut": null,
+              "duration": 21269,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": "\"../screenshots/navigation.cy.js/Navigation -- cy.go() - go back or forward in the browser's history (failed).png\"",
+              "code": "// https://on.cypress.io/go\ncy.location('pathname').should('include', 'navigation');\ncy.go('back');\ncy.location('pathname').should('not.include', 'navigation');\ncy.go('forward');\ncy.location('pathname').should('include', 'navigation');\n// clicking back\ncy.go(-1);\ncy.location('pathname').should('not.include', 'navigation');\n// clicking forward\ncy.go(1);\ncy.location('pathname').should('include', 'navigation');",
+              "err": {
+                "message": "CypressError: `cy.visit()` failed trying to load:\n\nhttps://example.cypress.io/\n\nWe attempted to make an http request to this URL but the request failed without a response.\n\nWe received this error at the network level:\n\n  > Error: connect ETIMEDOUT 104.20.35.55:443\n\nCommon situations why this would fail:\n  - you don't have internet access\n  - you forgot to run / boot your web server\n  - your web server isn't accessible\n  - you have weird network configuration settings on your computer\n\nBecause this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Navigation`",
+                "estack": "CypressError: `cy.visit()` failed trying to load:\n\nhttps://example.cypress.io/\n\nWe attempted to make an http request to this URL but the request failed without a response.\n\nWe received this error at the network level:\n\n  > Error: connect ETIMEDOUT 104.20.35.55:443\n\nCommon situations why this would fail:\n  - you don't have internet access\n  - you forgot to run / boot your web server\n  - your web server isn't accessible\n  - you have weird network configuration settings on your computer\n\nBecause this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Navigation`\n    at <unknown> (https://v0-medconnect-booking-app.vercel.app/__cypress/runner/cypress_runner.js:131607:74)\n    at visitFailedByErr (https://v0-medconnect-booking-app.vercel.app/__cypress/runner/cypress_runner.js:131006:12)\n    at <unknown> (https://v0-medconnect-booking-app.vercel.app/__cypress/runner/cypress_runner.js:131606:11)\n    at tryCatcher (https://v0-medconnect-booking-app.vercel.app/__cypress/runner/cypress_runner.js:1830:23)\n    at Promise._settlePromiseFromHandler (https://v0-medconnect-booking-app.vercel.app/__cypress/runner/cypress_runner.js:1542:31)\n    at Promise._settlePromise (https://v0-medconnect-booking-app.vercel.app/__cypress/runner/cypress_runner.js:1599:18)\n    at Promise._settlePromise0 (https://v0-medconnect-booking-app.vercel.app/__cypress/runner/cypress_runner.js:1644:10)\n    at Promise._settlePromises (https://v0-medconnect-booking-app.vercel.app/__cypress/runner/cypress_runner.js:1720:18)\n    at _drainQueueStep (https://v0-medconnect-booking-app.vercel.app/__cypress/runner/cypress_runner.js:2430:12)\n    at _drainQueue (https://v0-medconnect-booking-app.vercel.app/__cypress/runner/cypress_runner.js:2423:9)\n    at Async._drainQueues (https://v0-medconnect-booking-app.vercel.app/__cypress/runner/cypress_runner.js:2439:5)\n    at Async.drainQueues (https://v0-medconnect-booking-app.vercel.app/__cypress/runner/cypress_runner.js:2309:14)\nFrom Your Spec Code:\n    at Context.eval (webpack://medconnect-automation-framework/./cypress/e2e/2-advanced-examples/navigation.cy.js:5:7)\n\nFrom Node.js Internals:\n  Error: connect ETIMEDOUT 104.20.35.55:443\n      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1495:16)",
+                "diff": null
+              },
+              "uuid": "352c27e4-4236-437f-9b21-90b615b40d2d",
+              "parentUUID": "55e4c697-1d24-4c87-96e9-32fa9bce836f",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "cy.reload() - reload the page",
+              "fullTitle": "Navigation cy.reload() - reload the page",
+              "timedOut": null,
+              "duration": 0,
+              "state": "skipped",
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "// https://on.cypress.io/reload\ncy.reload();\n// reload the page without using the cache\ncy.reload(true);",
+              "err": {},
+              "uuid": "d1e53768-0f05-408d-8651-e5d851ee0a70",
+              "parentUUID": "55e4c697-1d24-4c87-96e9-32fa9bce836f",
+              "isHook": false,
+              "skipped": true
+            },
+            {
+              "title": "cy.visit() - visit a remote url",
+              "fullTitle": "Navigation cy.visit() - visit a remote url",
+              "timedOut": null,
+              "duration": 0,
+              "state": "skipped",
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "// https://on.cypress.io/visit\n// Visit any sub-domain of your current domain\n// Pass options to the visit\ncy.visit('https://example.cypress.io/commands/navigation', {\n  timeout: 50000,\n  // increase total time for the visit to resolve\n  onBeforeLoad(contentWindow) {\n    // contentWindow is the remote page's window object\n    expect(typeof contentWindow === 'object').to.be.true;\n  },\n  onLoad(contentWindow) {\n    // contentWindow is the remote page's window object\n    expect(typeof contentWindow === 'object').to.be.true;\n  }\n});",
+              "err": {},
+              "uuid": "786ffa0d-ae3a-4bbf-ab44-173021b44c61",
+              "parentUUID": "55e4c697-1d24-4c87-96e9-32fa9bce836f",
+              "isHook": false,
+              "skipped": true
+            }
+          ],
+          "suites": [],
+          "passes": [],
+          "failures": [
+            "352c27e4-4236-437f-9b21-90b615b40d2d"
+          ],
+          "pending": [],
+          "skipped": [
+            "d1e53768-0f05-408d-8651-e5d851ee0a70",
+            "786ffa0d-ae3a-4bbf-ab44-173021b44c61"
+          ],
+          "duration": 21269,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.4"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "cypress/reports/mocha",
+        "overwrite": false,
+        "html": false,
+        "json": true
+      },
+      "version": "6.3.2"
+    }
+  }
+}

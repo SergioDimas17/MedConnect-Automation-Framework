@@ -6,9 +6,11 @@
 *.war
 
 # Carpetas pesadas de Node.js / Cypress
-**/node_modules/
-**/cypress/screenshots/
-**/cypress/videos/
+cypress/reports/
+cypress/screenshots/
+cypress/videos/
+selenium-java/target/
+playwright-java/target/
 
 # Configuraciones de IntelliJ y VSCode
 **/.idea/

@@ -1,0 +1,55 @@
+name: Monorepo E2E Pipeline
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  cypress-tests:
+    name: 🟢 Pruebas Cypress (JS)
+    runs-on: ubuntu-latest
+    env:
+      BASE_URL: ${{ secrets.BASE_URL || 'https://v0-medconnect-booking-app.vercel.app/' }}
+      ADMIN_USER: ${{ secrets.ADMIN_USER || 'admin@medconnect.com' }}
+      ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD || 'Admin123' }}
+    steps:
+      - name: Checkout del código
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Instalar dependencias e iniciar pruebas
+        working-directory: ./cypress-js
+        run: |
+          npm ci
+          npx cypress run
+
+  java-tests:
+    name: ☕ Pruebas Java (Playwright & Selenium)
+    runs-on: ubuntu-latest
+    env:
+      BASE_URL: ${{ secrets.BASE_URL || 'https://v0-medconnect-booking-app.vercel.app/' }}
+      ADMIN_USER: ${{ secrets.ADMIN_USER || 'admin@medconnect.com' }}
+      ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD || 'Admin123' }}
+    steps:
+      - name: Checkout del código
+        uses: actions/checkout@v4
+
+      - name: Configurar JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Pruebas Playwright
+        working-directory: ./playwright-java
+        run: mvn clean test
+
+      - name: Pruebas Selenium
+        working-directory: ./selenium-java
+        run: mvn clean test

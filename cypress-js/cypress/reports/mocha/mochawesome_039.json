@@ -1,0 +1,207 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 1,
+    "passes": 0,
+    "pending": 0,
+    "failures": 1,
+    "start": "2026-06-20T06:11:48.159Z",
+    "end": "2026-06-20T06:12:09.564Z",
+    "duration": 21405,
+    "testsRegistered": 5,
+    "passPercent": 0,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 4,
+    "hasSkipped": true
+  },
+  "results": [
+    {
+      "uuid": "2f2a7c77-5bef-4f02-a6a2-828d2aae3cb1",
+      "title": "",
+      "fullFile": "cypress\\e2e\\2-advanced-examples\\misc.cy.js",
+      "file": "cypress\\e2e\\2-advanced-examples\\misc.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "275c6f37-9817-4ec5-9dd8-72364a1297d8",
+          "title": "Misc",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "cy.exec() - execute a system command",
+              "fullTitle": "Misc cy.exec() - execute a system command",
+              "timedOut": null,
+              "duration": 21285,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": "\"../screenshots/misc.cy.js/Misc -- cy.exec() - execute a system command (failed).png\"",
+              "code": "// execute a system command.\n// so you can take actions necessary for\n// your test outside the scope of Cypress.\n// https://on.cypress.io/exec\n// we can use Cypress.platform string to\n// select appropriate command\n// https://on.cypress/io/platform\ncy.log(`Platform ${Cypress.platform} architecture ${Cypress.arch}`);\n// on CircleCI Windows build machines we have a failure to run bash shell\n// https://github.com/cypress-io/cypress/issues/5169\n// so skip some of the tests by passing flag \"--expose circle=true\"\nconst isCircleOnWindows = Cypress.platform === 'win32' && Cypress.expose('circle');\nif (isCircleOnWindows) {\n  cy.log('Skipping test on CircleCI');\n  return;\n}\n// cy.exec problem on Shippable CI\n// https://github.com/cypress-io/cypress/issues/6718\nconst isShippable = Cypress.platform === 'linux' && Cypress.expose('shippable');\nif (isShippable) {\n  cy.log('Skipping test on ShippableCI');\n  return;\n}\ncy.exec('echo Jane Lane').its('stdout').should('contain', 'Jane Lane');\nif (Cypress.platform === 'win32') {\n  cy.exec(`print ${Cypress.config('configFile')}`).its('stderr').should('be.empty');\n} else {\n  cy.exec(`cat ${Cypress.config('configFile')}`).its('stderr').should('be.empty');\n  cy.log(`Cypress version ${Cypress.version}`);\n  if (Cypress.version.split('.').map(Number)[0] < 15) {\n    cy.exec('pwd').its('code').should('eq', 0);\n  } else {\n    cy.exec('pwd').its('exitCode').should('eq', 0);\n  }\n}",
+              "err": {
+                "message": "CypressError: `cy.visit()` failed trying to load:\n\nhttps://example.cypress.io/commands/misc\n\nWe attempted to make an http request to this URL but the request failed without a response.\n\nWe received this error at the network level:\n\n  > Error: connect ETIMEDOUT 104.20.35.55:443\n\nCommon situations why this would fail:\n  - you don't have internet access\n  - you forgot to run / boot your web server\n  - your web server isn't accessible\n  - you have weird network configuration settings on your computer\n\nBecause this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Misc`",
+                "estack": "CypressError: `cy.visit()` failed trying to load:\n\nhttps://example.cypress.io/commands/misc\n\nWe attempted to make an http request to this URL but the request failed without a response.\n\nWe received this error at the network level:\n\n  > Error: connect ETIMEDOUT 104.20.35.55:443\n\nCommon situations why this would fail:\n  - you don't have internet access\n  - you forgot to run / boot your web server\n  - your web server isn't accessible\n  - you have weird network configuration settings on your computer\n\nBecause this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Misc`\n    at <unknown> (https://v0-medconnect-booking-app.vercel.app/__cypress/runner/cypress_runner.js:131607:74)\n    at visitFailedByErr (https://v0-medconnect-booking-app.vercel.app/__cypress/runner/cypress_runner.js:131006:12)\n    at <unknown> (https://v0-medconnect-booking-app.vercel.app/__cypress/runner/cypress_runner.js:131606:11)\n    at tryCatcher (https://v0-medconnect-booking-app.vercel.app/__cypress/runner/cypress_runner.js:1830:23)\n    at Promise._settlePromiseFromHandler (https://v0-medconnect-booking-app.vercel.app/__cypress/runner/cypress_runner.js:1542:31)\n    at Promise._settlePromise (https://v0-medconnect-booking-app.vercel.app/__cypress/runner/cypress_runner.js:1599:18)\n    at Promise._settlePromise0 (https://v0-medconnect-booking-app.vercel.app/__cypress/runner/cypress_runner.js:1644:10)\n    at Promise._settlePromises (https://v0-medconnect-booking-app.vercel.app/__cypress/runner/cypress_runner.js:1720:18)\n    at _drainQueueStep (https://v0-medconnect-booking-app.vercel.app/__cypress/runner/cypress_runner.js:2430:12)\n    at _drainQueue (https://v0-medconnect-booking-app.vercel.app/__cypress/runner/cypress_runner.js:2423:9)\n    at Async._drainQueues (https://v0-medconnect-booking-app.vercel.app/__cypress/runner/cypress_runner.js:2439:5)\n    at Async.drainQueues (https://v0-medconnect-booking-app.vercel.app/__cypress/runner/cypress_runner.js:2309:14)\nFrom Your Spec Code:\n    at Context.eval (webpack://medconnect-automation-framework/./cypress/e2e/2-advanced-examples/misc.cy.js:5:7)\n\nFrom Node.js Internals:\n  Error: connect ETIMEDOUT 104.20.35.55:443\n      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1495:16)",
+                "diff": null
+              },
+              "uuid": "4f1b4d05-3f37-42e3-87a5-f04c7cd07b0a",
+              "parentUUID": "275c6f37-9817-4ec5-9dd8-72364a1297d8",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "cy.focused() - get the DOM element that has focus",
+              "fullTitle": "Misc cy.focused() - get the DOM element that has focus",
+              "timedOut": null,
+              "duration": 0,
+              "state": "skipped",
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "// https://on.cypress.io/focused\ncy.get('.misc-form').find('#name').click();\ncy.focused().should('have.id', 'name');\ncy.get('.misc-form').find('#description').click();\ncy.focused().should('have.id', 'description');",
+              "err": {},
+              "uuid": "d3557768-12ef-4eb6-8fe5-e56934cd5fd5",
+              "parentUUID": "275c6f37-9817-4ec5-9dd8-72364a1297d8",
+              "isHook": false,
+              "skipped": true
+            },
+            {
+              "title": "cy.wrap() - wrap an object",
+              "fullTitle": "Misc cy.wrap() - wrap an object",
+              "timedOut": null,
+              "duration": 0,
+              "state": "skipped",
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "// https://on.cypress.io/wrap\ncy.wrap({\n  foo: 'bar'\n}).should('have.property', 'foo').and('include', 'bar');",
+              "err": {},
+              "uuid": "bd76113a-d2a4-4b5d-aab1-d43a960cfd7f",
+              "parentUUID": "275c6f37-9817-4ec5-9dd8-72364a1297d8",
+              "isHook": false,
+              "skipped": true
+            }
+          ],
+          "suites": [
+            {
+              "uuid": "515fbc9f-e9c5-4b2a-9a5d-3bfdf07cf3b3",
+              "title": "Cypress.Screenshot",
+              "fullFile": "",
+              "file": "",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "cy.screenshot() - take a screenshot",
+                  "fullTitle": "Misc Cypress.Screenshot cy.screenshot() - take a screenshot",
+                  "timedOut": null,
+                  "duration": 0,
+                  "state": "skipped",
+                  "speed": null,
+                  "pass": false,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "// https://on.cypress.io/screenshot\ncy.screenshot('my-image');",
+                  "err": {},
+                  "uuid": "e771a306-fe01-4b12-a5ed-10c43aa091f5",
+                  "parentUUID": null,
+                  "isHook": false,
+                  "skipped": true
+                },
+                {
+                  "title": "Cypress.Screenshot.defaults() - change default config of screenshots",
+                  "fullTitle": "Misc Cypress.Screenshot Cypress.Screenshot.defaults() - change default config of screenshots",
+                  "timedOut": null,
+                  "duration": 0,
+                  "state": "skipped",
+                  "speed": null,
+                  "pass": false,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "Cypress.Screenshot.defaults({\n  blackout: ['.foo'],\n  capture: 'viewport',\n  clip: {\n    x: 0,\n    y: 0,\n    width: 200,\n    height: 200\n  },\n  scale: false,\n  disableTimersAndAnimations: true,\n  screenshotOnRunFailure: true,\n  onBeforeScreenshot() {},\n  onAfterScreenshot() {}\n});",
+                  "err": {},
+                  "uuid": "36f0ac9f-ca5e-416d-9d26-5c8fc2e95c22",
+                  "parentUUID": null,
+                  "isHook": false,
+                  "skipped": true
+                }
+              ],
+              "suites": [],
+              "passes": [],
+              "failures": [],
+              "pending": [],
+              "skipped": [
+                "e771a306-fe01-4b12-a5ed-10c43aa091f5",
+                "36f0ac9f-ca5e-416d-9d26-5c8fc2e95c22"
+              ],
+              "duration": 0,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 2000
+            }
+          ],
+          "passes": [],
+          "failures": [
+            "4f1b4d05-3f37-42e3-87a5-f04c7cd07b0a"
+          ],
+          "pending": [],
+          "skipped": [
+            "d3557768-12ef-4eb6-8fe5-e56934cd5fd5",
+            "bd76113a-d2a4-4b5d-aab1-d43a960cfd7f"
+          ],
+          "duration": 21285,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.4"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "cypress/reports/mocha",
+        "overwrite": false,
+        "html": false,
+        "json": true
+      },
+      "version": "6.3.2"
+    }
+  }
+}

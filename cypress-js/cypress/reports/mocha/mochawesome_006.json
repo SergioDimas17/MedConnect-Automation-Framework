@@ -1,0 +1,124 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 2,
+    "passes": 2,
+    "pending": 0,
+    "failures": 0,
+    "start": "2026-06-20T06:03:12.213Z",
+    "end": "2026-06-20T06:03:17.497Z",
+    "duration": 5284,
+    "testsRegistered": 2,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "34c2d8ef-030e-4615-be35-906ad62845b8",
+      "title": "",
+      "fullFile": "cypress\\e2e\\login.cy.js",
+      "file": "cypress\\e2e\\login.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "a4f8fe3e-0a0e-4214-9ad8-51f757391f95",
+          "title": "US-01 & US-02: Portal de Autenticación - MedConnect (POM Architecture)",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "EDP-2: Debería iniciar sesión exitosamente con credenciales administrativas",
+              "fullTitle": "US-01 & US-02: Portal de Autenticación - MedConnect (POM Architecture) EDP-2: Debería iniciar sesión exitosamente con credenciales administrativas",
+              "timedOut": null,
+              "duration": 3010,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "// Ejecución del Camino Feliz (Happy Path) del Flujo E2E 01\n_LoginPage.default.login('admin@medconnect.com', 'Admin123');\n//Se valida el despliegue del Dashboard confirmando la presencia del botón core\ncy.contains('button', 'Nueva Cita').should('be.visible');",
+              "err": {},
+              "uuid": "f44aebfe-c829-41fe-a414-b1680035287d",
+              "parentUUID": "a4f8fe3e-0a0e-4214-9ad8-51f757391f95",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "EDP-3: Debería desplegar alerta restrictiva ante credenciales inválidas",
+              "fullTitle": "US-01 & US-02: Portal de Autenticación - MedConnect (POM Architecture) EDP-3: Debería desplegar alerta restrictiva ante credenciales inválidas",
+              "timedOut": null,
+              "duration": 2153,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "// Ejecución del Camino Infeliz (Negative Path)\n_LoginPage.default.login('fake@medconnect.com', 'WrongPassword123');\n// Se Comprueba el manejo de errores visuales en la UX de MedConnect\ncy.get('.bg-destructive, .text-destructive, [role=\"alert\"]').should('be.visible');",
+              "err": {},
+              "uuid": "1043b197-1fe9-4d3d-8d4c-847175a3bd8f",
+              "parentUUID": "a4f8fe3e-0a0e-4214-9ad8-51f757391f95",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "f44aebfe-c829-41fe-a414-b1680035287d",
+            "1043b197-1fe9-4d3d-8d4c-847175a3bd8f"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 5163,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.4"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "cypress/reports/mocha",
+        "overwrite": false,
+        "html": false,
+        "json": true
+      },
+      "version": "6.3.2"
+    }
+  }
+}

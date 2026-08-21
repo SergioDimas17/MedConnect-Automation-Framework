@@ -1,0 +1,105 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 1,
+    "passes": 1,
+    "pending": 0,
+    "failures": 0,
+    "start": "2026-06-20T06:08:41.674Z",
+    "end": "2026-06-20T06:08:54.031Z",
+    "duration": 12357,
+    "testsRegistered": 1,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "b9d9d26f-b02c-4c3a-9bda-761ed3b5e86a",
+      "title": "",
+      "fullFile": "cypress\\e2e\\concurrency.cy.js",
+      "file": "cypress\\e2e\\concurrency.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "e4f17f38-9c93-4409-a1ae-9305679c2125",
+          "title": "Prueba de Reactividad UI y UX - MedConnect",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "EDP-7: Camino A - UX: El frontend debe deshabilitar el horario reservado por el Operador A",
+              "fullTitle": "Prueba de Reactividad UI y UX - MedConnect EDP-7: Camino A - UX: El frontend debe deshabilitar el horario reservado por el Operador A",
+              "timedOut": null,
+              "duration": 12188,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const opciones = '[role=\"option\"], [data-radix-collection-item], [data-cmdk-item]';\n// Se agenda la cita del operador A\ncy.contains('button', 'Nueva Cita').click();\ncy.get('input[placeholder*=\"María\"]').type('Carlos Gómez');\ncy.get('input[type=\"email\"]').type('carlos.gomez@test.com');\ncy.get('input[type=\"tel\"]').type('3000000000');\ncy.contains('button', 'Seleccionar especialidad').click();\ncy.get(opciones).first().click();\ncy.contains('button', 'Seleccionar doctor').should('not.be.disabled').click();\ncy.get(opciones).first().click();\ncy.contains('button', 'Seleccionar fecha').should('not.be.disabled').click();\ncy.get(opciones).first().click();\ncy.contains('button', 'Seleccionar hora').should('not.be.disabled').click();\ncy.get(opciones).first().click(); // Operador A toma la primera hora disponible\ncy.contains('button', 'Agendar Cita').click();\ncy.contains('Carlos Gómez', {\n  timeout: 10000\n}).should('be.visible');\n//  El operador B agenda el mismo horario\ncy.contains('button', 'Nueva Cita').click();\ncy.get('input[placeholder*=\"María\"]').type('Paciente Observador');\ncy.get('input[type=\"email\"]').type('observador@test.com');\ncy.get('input[type=\"tel\"]').type('3009999999');\n// Operador B recorre el mismo camino exacto\ncy.contains('button', 'Seleccionar especialidad').click();\ncy.get(opciones).first().click();\ncy.contains('button', 'Seleccionar doctor').should('not.be.disabled').click();\ncy.get(opciones).first().click();\ncy.contains('button', 'Seleccionar fecha').should('not.be.disabled').click();\ncy.get(opciones).first().click();\n// El robot verifica el bloqueo\n// Abrimos el menú de horas\ncy.contains('button', 'Seleccionar hora').should('not.be.disabled').click();\n//Se valida que el atributo indique que está desactivado.\n// Radix UI usa 'aria-disabled' o 'data-disabled' para bloquear elementos.\ncy.get(opciones).first().should('exist').and('have.attr', 'aria-disabled', 'true');\ncy.log('✅ Éxito: La aplicación cumplió su diseño y desactivó la hora correctamente.');",
+              "err": {},
+              "uuid": "fde15fd0-8900-4634-b864-c9470563b8db",
+              "parentUUID": "e4f17f38-9c93-4409-a1ae-9305679c2125",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "fde15fd0-8900-4634-b864-c9470563b8db"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 12188,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.4"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "cypress/reports/mocha",
+        "overwrite": false,
+        "html": false,
+        "json": true
+      },
+      "version": "6.3.2"
+    }
+  }
+}
