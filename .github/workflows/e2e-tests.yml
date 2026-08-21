@@ -46,11 +46,18 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
+      - name: Instalar dependencias para Playwright
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y xvfb
+
       - name: Ejecutar Pruebas con Maven
         env:
           BASE_URL: ${{ secrets.BASE_URL || 'https://v0-medconnect-booking-app.vercel.app/' }}
           ADMIN_USER: ${{ secrets.ADMIN_USER || 'admin@medconnect.com' }}
           ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD || 'Admin123' }}
+          DISPLAY: :99
         run: |
           cd playwright-java
+          Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
           mvn test

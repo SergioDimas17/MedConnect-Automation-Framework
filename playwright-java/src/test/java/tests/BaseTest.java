@@ -24,15 +24,27 @@ public class BaseTest {
 
     @BeforeEach
     public void setUp() {
-        playwright = Playwright.create();
-        browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false));
+        // 1. Lee tu configuración local como lo construimos en el Paso 38
+        boolean modoHeadlessLocal = Boolean.parseBoolean(propiedades.getProperty("browser.headless"));
 
-        //  Grabación de video automática para todas las pruebas
-        context = browser.newContext(new Browser.NewContextOptions()
-                .setRecordVideoDir(Paths.get("target/allure-results/videos/")));
+        // 2. Detecta automáticamente si el código está corriendo en la nube de GitHub
+        boolean isCI = System.getenv("CI") != null;
 
+        // 3. Lógica maestra: Si está en la nube, obligar a true. Si es local, respeta tu properties.
+        boolean modoHeadlessFinal = isCI || modoHeadlessLocal;
+
+        // 4. Configuración robusta para entornos Linux sin interfaz
+        BrowserType.LaunchOptions launchOptions = new BrowserType.LaunchOptions()
+                .setHeadless(modoHeadlessFinal)
+                .setArgs(Arrays.asList(
+                        "--disable-gpu",
+                        "--no-sandbox",
+                        "--disable-dev-shm-usage"
+                ));
+
+        browser = playwright.chromium().launch(launchOptions);
+        context = browser.newContext();
         page = context.newPage();
-        page.navigate(baseUrl);
     }
 
     @AfterEach
