@@ -14,6 +14,7 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 
 import java.io.ByteArrayInputStream;
 import java.nio.file.Paths;
+import java.util.Arrays;
 
 public class BaseTest {
     protected Playwright playwright;
@@ -24,18 +25,18 @@ public class BaseTest {
 
     @BeforeEach
     public void setUp() {
-        // 1. Lee tu configuración local como lo construimos en el Paso 38
-        boolean modoHeadlessLocal = Boolean.parseBoolean(propiedades.getProperty("browser.headless"));
+        // Inicializar Playwright
+        playwright = Playwright.create();
 
-        // 2. Detecta automáticamente si el código está corriendo en la nube de GitHub
+        // Detecta automáticamente si el código está corriendo en CI (GitHub Actions)
         boolean isCI = System.getenv("CI") != null;
 
-        // 3. Lógica maestra: Si está en la nube, obligar a true. Si es local, respeta tu properties.
-        boolean modoHeadlessFinal = isCI || modoHeadlessLocal;
+        // Modo headless: true en CI, false en local para desarrollo
+        boolean modoHeadless = isCI;
 
-        // 4. Configuración robusta para entornos Linux sin interfaz
+        // Configuración robusta para entornos Linux sin interfaz gráfica
         BrowserType.LaunchOptions launchOptions = new BrowserType.LaunchOptions()
-                .setHeadless(modoHeadlessFinal)
+                .setHeadless(modoHeadless)
                 .setArgs(Arrays.asList(
                         "--disable-gpu",
                         "--no-sandbox",
@@ -45,6 +46,7 @@ public class BaseTest {
         browser = playwright.chromium().launch(launchOptions);
         context = browser.newContext();
         page = context.newPage();
+        page.navigate(baseUrl);
     }
 
     @AfterEach
@@ -54,7 +56,7 @@ public class BaseTest {
         if (playwright != null) playwright.close();
     }
 
-    //  Toma captura de pantalla automática SOLO si el test falla
+    // Toma captura de pantalla automática SOLO si el test falla
     @RegisterExtension
     AfterTestExecutionCallback visualEvidenceGuard = new AfterTestExecutionCallback() {
         @Override
