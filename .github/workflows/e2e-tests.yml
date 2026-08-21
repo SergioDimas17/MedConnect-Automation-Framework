@@ -78,7 +78,7 @@ jobs:
       - name: Instalar dependencias para Selenium
         run: |
           sudo apt-get update
-          sudo apt-get install -y xvfb chromium-browser chromium-chromedriver
+          sudo apt-get install -y xvfb google-chrome-stable
 
       - name: Ejecutar Pruebas con Maven
         env:
@@ -86,7 +86,6 @@ jobs:
           ADMIN_USER: ${{ secrets.ADMIN_USER || 'admin@medconnect.com' }}
           ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD || 'Admin123' }}
           DISPLAY: :99
-          CHROMEDRIVER_PATH: /usr/bin/chromedriver
         run: |
           cd selenium-java
           Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
