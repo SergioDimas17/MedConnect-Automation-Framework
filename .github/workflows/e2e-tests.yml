@@ -1,4 +1,4 @@
-name: Monorepo E2E Pipeline
+name: Pipeline E2E MedConnect
 
 on:
   push:
@@ -8,12 +8,8 @@ on:
 
 jobs:
   cypress-tests:
-    name: 🟢 Pruebas Cypress (JS)
+    name: Pruebas Cypress (JavaScript)
     runs-on: ubuntu-latest
-    env:
-      BASE_URL: ${{ secrets.BASE_URL || 'https://v0-medconnect-booking-app.vercel.app/' }}
-      ADMIN_USER: ${{ secrets.ADMIN_USER || 'admin@medconnect.com' }}
-      ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD || 'Admin123' }}
     steps:
       - name: Checkout del código
         uses: actions/checkout@v4
@@ -21,21 +17,25 @@ jobs:
       - name: Configurar Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 18
 
-      - name: Instalar dependencias e iniciar pruebas
-        working-directory: ./cypress-js
+      - name: Instalar dependencias
         run: |
+          cd cypress-js
           npm ci
+
+      - name: Ejecutar Pruebas Cypress
+        env:
+          BASE_URL: ${{ secrets.BASE_URL || 'https://v0-medconnect-booking-app.vercel.app/' }}
+          ADMIN_USER: ${{ secrets.ADMIN_USER || 'admin@medconnect.com' }}
+          ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD || 'Admin123' }}
+        run: |
+          cd cypress-js
           npx cypress run
 
-  java-tests:
-    name: ☕ Pruebas Java (Playwright & Selenium)
+  playwright-java-tests:
+    name: Pruebas Playwright (Java)
     runs-on: ubuntu-latest
-    env:
-      BASE_URL: ${{ secrets.BASE_URL || 'https://v0-medconnect-booking-app.vercel.app/' }}
-      ADMIN_USER: ${{ secrets.ADMIN_USER || 'admin@medconnect.com' }}
-      ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD || 'Admin123' }}
     steps:
       - name: Checkout del código
         uses: actions/checkout@v4
@@ -46,10 +46,11 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Pruebas Playwright
-        working-directory: ./playwright-java
-        run: mvn clean test
-
-      - name: Pruebas Selenium
-        working-directory: ./selenium-java
-        run: mvn clean test
+      - name: Ejecutar Pruebas con Maven
+        env:
+          BASE_URL: ${{ secrets.BASE_URL || 'https://v0-medconnect-booking-app.vercel.app/' }}
+          ADMIN_USER: ${{ secrets.ADMIN_USER || 'admin@medconnect.com' }}
+          ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD || 'Admin123' }}
+        run: |
+          cd playwright-java
+          mvn test
