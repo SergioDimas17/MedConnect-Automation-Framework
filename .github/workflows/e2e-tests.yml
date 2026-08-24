@@ -5,6 +5,9 @@ on:
     branches: [ main, master ]
   pull_request:
     branches: [ main, master ]
+  schedule:
+    - cron: '0 2 * * *' # Se ejecuta diariamente a las 2:00 AM UTC
+
 
 jobs:
   cypress-tests:
@@ -32,6 +35,26 @@ jobs:
         run: |
           cd cypress-js
           npx cypress run
+
+      - name: Publicar Evidencias de Prueba
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: evidencias-e2e
+          path: |
+            cypress-js/cypress/reports/
+            selenium-java/target/evidencias/
+            playwright-java/target/allure-results/
+
+      - name: Publicar Evidencias de Prueba
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: evidencias-e2e
+          path: |
+            cypress-js/cypress/reports/
+            selenium-java/target/evidencias/
+            playwright-java/target/allure-results/     
 
   playwright-java-tests:
     name: Pruebas Playwright (Java)
