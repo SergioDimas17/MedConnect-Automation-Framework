@@ -8,7 +8,6 @@ on:
   schedule:
     - cron: '0 2 * * *' # Se ejecuta diariamente a las 2:00 AM UTC
 
-
 jobs:
   cypress-tests:
     name: Pruebas Cypress (JavaScript)
@@ -20,7 +19,7 @@ jobs:
       - name: Configurar Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 20
 
       - name: Instalar dependencias
         run: |
@@ -36,25 +35,12 @@ jobs:
           cd cypress-js
           npx cypress run
 
-      - name: Publicar Evidencias de Prueba
+      - name: Publicar Evidencias Cypress
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: evidencias-e2e
-          path: |
-            cypress-js/cypress/reports/
-            selenium-java/target/evidencias/
-            playwright-java/target/allure-results/
-
-      - name: Publicar Evidencias de Prueba
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: evidencias-e2e
-          path: |
-            cypress-js/cypress/reports/
-            selenium-java/target/evidencias/
-            playwright-java/target/allure-results/     
+          name: evidencias-cypress
+          path: cypress-js/cypress/reports/
 
   playwright-java-tests:
     name: Pruebas Playwright (Java)
@@ -79,11 +65,16 @@ jobs:
           BASE_URL: ${{ secrets.BASE_URL || 'https://v0-medconnect-booking-app.vercel.app/' }}
           ADMIN_USER: ${{ secrets.ADMIN_USER || 'admin@medconnect.com' }}
           ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD || 'Admin123' }}
-          DISPLAY: :99
         run: |
           cd playwright-java
-          Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
-          mvn test
+          xvfb-run mvn test
+
+      - name: Publicar Evidencias Playwright
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: evidencias-playwright
+          path: playwright-java/target/allure-results/
 
   selenium-java-tests:
     name: Pruebas Selenium (Java)
@@ -108,8 +99,13 @@ jobs:
           BASE_URL: ${{ secrets.BASE_URL || 'https://v0-medconnect-booking-app.vercel.app/' }}
           ADMIN_USER: ${{ secrets.ADMIN_USER || 'admin@medconnect.com' }}
           ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD || 'Admin123' }}
-          DISPLAY: :99
         run: |
           cd selenium-java
-          Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
-          mvn test
+          xvfb-run mvn test
+
+      - name: Publicar Evidencias Selenium
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: evidencias-selenium
+          path: selenium-java/target/evidencias/
